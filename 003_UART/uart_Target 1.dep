@@ -1,0 +1,7 @@
+Dependencies for Project 'uart', Target 'Target 1': (DO NOT MODIFY !)
+F (.\S3C2440.s)(0x4BB19EDE)(--cpu ARM920T -g --apcs=interwork -I "C:\Keil\ARM\INC" -I "C:\Keil\ARM\INC\Samsung" --list "S3C2440.lst" --xref -o "S3C2440.o" --depend "S3C2440.d")
+F (.\uart.c)(0x5A8BD9DD)(--feedback "uart.fed" -c --cpu ARM920T -g -O0 --apcs=interwork -I "C:\Keil\ARM\INC" -I "C:\Keil\ARM\INC\Samsung" -o "uart.o" --omf_browse "uart.crf" --depend "uart.d")
+I (C:\Keil\ARM\INC\Samsung\s3c2440.h)(0x4BB19FA6)
+I (uart.h)(0x5A8BDA11)
+F (.\main.c)(0x5A8BD9BA)(--feedback "uart.fed" -c --cpu ARM920T -g -O0 --apcs=interwork -I "C:\Keil\ARM\INC" -I "C:\Keil\ARM\INC\Samsung" -o "main.o" --omf_browse "main.crf" --depend "main.d")
+I (uart.h)(0x5A8BDA11)

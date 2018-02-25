@@ -1,0 +1,5 @@
+;#<FEEDBACK># ARM Linker, 4.1 [Build 481]: Last Updated: Tue Feb 20 16:19:30 2018
+;VERSION 0.2
+;FILE main.o
+;FILE s3c2440.o
+;FILE uart.o

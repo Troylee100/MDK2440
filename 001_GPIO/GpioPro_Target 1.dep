@@ -1,0 +1,3 @@
+Dependencies for Project 'GpioPro', Target 'Target 1': (DO NOT MODIFY !)
+F (.\S3C2440.s)(0x5A8A785C)(--cpu ARM920T -g --apcs=interwork -I "C:\Keil\ARM\INC" -I "C:\Keil\ARM\INC\Samsung" --list "S3C2440.lst" --xref -o "S3C2440.o" --depend "S3C2440.d")
+F (.\main.c)(0x5A8A7691)(-c --cpu ARM920T -g -O0 --apcs=interwork -I "C:\Keil\ARM\INC" -I "C:\Keil\ARM\INC\Samsung" -o "main.o" --omf_browse "main.crf" --depend "main.d")

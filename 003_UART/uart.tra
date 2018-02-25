@@ -1,0 +1,22 @@
+*** Creating Trace Output File 'uart.tra' Ok.
+### Preparing for ADS-LD.
+### Creating ADS-LD Command Line
+### List of Objects: adding '"s3c2440.o"'
+### List of Objects: adding '"uart.o"'
+### List of Objects: adding '"main.o"'
+### ADS-LD Command completed:
+--cpu ARM920T "s3c2440.o" "uart.o" "main.o" --feedback "uart.fed" 
+--strict --scatter "uart.sct" 
+--autoat --summary_stderr --info summarysizes --map --xref --callgraph --symbols 
+--info sizes --info totals --info unused --info veneers 
+ --list ".\uart.map" -o "uart.axf"### Preparing Environment (PrepEnvAds)
+### ADS-LD Output File: 'uart.axf'
+### ADS-LD Command File: 'uart.lnp'
+### Checking for dirty Components...
+### Creating CmdFile 'uart.lnp', Handle=0x00000AC4
+### Writing '.lnp' file
+### ADS-LD Command file 'uart.lnp' is ready.
+### ADS-LD: About to start ADS-LD Thread.
+### ADS-LD: executed with 0 errors
+### Updating obj list
+### LDADS_file() completed.
