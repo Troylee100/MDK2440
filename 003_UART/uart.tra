@@ -2,18 +2,18 @@
 ### Preparing for ADS-LD.
 ### Creating ADS-LD Command Line
 ### List of Objects: adding '"s3c2440.o"'
-### List of Objects: adding '"uart.o"'
 ### List of Objects: adding '"main.o"'
+### List of Objects: adding '"uart.o"'
 ### ADS-LD Command completed:
---cpu ARM920T "s3c2440.o" "uart.o" "main.o" --feedback "uart.fed" 
+--cpu ARM920T "s3c2440.o" "main.o" "uart.o" 
 --strict --scatter "uart.sct" 
---autoat --summary_stderr --info summarysizes --map --xref --callgraph --symbols 
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols 
 --info sizes --info totals --info unused --info veneers 
- --list ".\uart.map" -o "uart.axf"### Preparing Environment (PrepEnvAds)
+ --list ".\uart.map" -o uart.axf### Preparing Environment (PrepEnvAds)
 ### ADS-LD Output File: 'uart.axf'
 ### ADS-LD Command File: 'uart.lnp'
 ### Checking for dirty Components...
-### Creating CmdFile 'uart.lnp', Handle=0x00000AC4
+### Creating CmdFile 'uart.lnp', Handle=0x00000990
 ### Writing '.lnp' file
 ### ADS-LD Command file 'uart.lnp' is ready.
 ### ADS-LD: About to start ADS-LD Thread.

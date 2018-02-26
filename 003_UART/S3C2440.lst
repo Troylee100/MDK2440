@@ -378,9 +378,9 @@ ARM Macro Assembler    Page 6
   210 00000000         ;//       <i> Divider is used only if CAMCLK_SEL = 1
   211 00000000         ;//   </h>
   212 00000000         ;// </e> Clock Setup
-  213 00000000 00000000 
+  213 00000000 00000001 
                        CLOCK_SETUP
-                               EQU              0
+                               EQU              1
   214 00000000 0FFF0FFF 
                        LOCKTIME_Val
                                EQU              0x0FFF0FFF
@@ -1664,112 +1664,166 @@ ARM Macro Assembler    Page 26
   917 00000070         
   918 00000070                 IF               (:LNOT:(:DEF:NO_CLOCK_SETUP)):L
 AND:(CLOCK_SETUP != 0)
-  934                          ENDIF
-  935 00000070         
-  936 00000070         
-  937 00000070         ; Memory Controller Setup ------------------------------
+  919 00000070 E3A00313        LDR              R0, =CLOCK_BASE
+  920 00000074 E59F10FC        LDR              R1,      =LOCKTIME_Val
+  921 00000078 E5801000        STR              R1, [R0, #LOCKTIME_OFS]
+  922 0000007C E3A0100F        MOV              R1,      #CLKDIVN_Val
+  923 00000080 E5801014        STR              R1, [R0, #CLKDIVN_OFS]
+  924 00000084 E3A01000        LDR              R1,      =CAMDIVN_Val
+  925 00000088 E5801018        STR              R1, [R0, #CAMDIVN_OFS]
+  926 0000008C E59F10E8        LDR              R1,      =MPLLCON_Val
+  927 00000090 E5801004        STR              R1, [R0, #MPLLCON_OFS]
+  928 00000094 E59F10E4        LDR              R1,      =UPLLCON_Val
+  929 00000098 E5801008        STR              R1, [R0, #UPLLCON_OFS]
+  930 0000009C E3A01004        MOV              R1,      #CLKSLOW_Val
+  931 000000A0 E5801010        STR              R1, [R0, #CLKSLOW_OFS]
+  932 000000A4 E59F10D8        LDR              R1,      =CLKCON_Val
+  933 000000A8 E580100C        STR              R1, [R0, #CLKCON_OFS]
+  934 000000AC                 ENDIF
+  935 000000AC         
+  936 000000AC         
+  937 000000AC         ; Memory Controller Setup ------------------------------
                        ------------------------
-  938 00000070         
-  939 00000070                 IF               (:LNOT:(:DEF:NO_MC_SETUP)):LAND
+  938 000000AC         
+  939 000000AC                 IF               (:LNOT:(:DEF:NO_MC_SETUP)):LAND
 :(CLOCK_SETUP != 0)
-  967                          ENDIF
-  968 00000070         
-  969 00000070         
-  970 00000070         ; I/O Pins Setup ---------------------------------------
-                       ------------------------
-  971 00000070         
-  972 00000070                 IF               (:LNOT:(:DEF:NO_GP_SETUP)):LAND
-:(GP_SETUP != 0)
- 1044                          ENDIF
- 1045 00000070         
- 1046 00000070         
- 1047 00000070         ; Copy Exception Vectors to Internal RAM ---------------
-                       ------------------------
- 1048 00000070         
- 1049 00000070                 IF               :DEF:RAM_INTVEC
- 1056                          ENDIF
+  940 000000AC E3A00312        LDR              R0, =MC_BASE
 
 
 
 ARM Macro Assembler    Page 27 
 
 
- 1057 00000070         
- 1058 00000070         
- 1059 00000070         ; Setup Stack for each mode ----------------------------
+  941 000000B0 E3A01422        LDR              R1,      =BWSCON_Val
+  942 000000B4 E5801000        STR              R1, [R0, #BWSCON_OFS]
+  943 000000B8 E3A01C07        LDR              R1,      =BANKCON0_Val
+  944 000000BC E5801004        STR              R1, [R0, #BANKCON0_OFS]
+  945 000000C0 E3A01C07        LDR              R1,      =BANKCON1_Val
+  946 000000C4 E5801008        STR              R1, [R0, #BANKCON1_OFS]
+  947 000000C8 E3A01C07        LDR              R1,      =BANKCON2_Val
+  948 000000CC E580100C        STR              R1, [R0, #BANKCON2_OFS]
+  949 000000D0 E3A01C07        LDR              R1,      =BANKCON3_Val
+  950 000000D4 E5801010        STR              R1, [R0, #BANKCON3_OFS]
+  951 000000D8 E3A01C07        LDR              R1,      =BANKCON4_Val
+  952 000000DC E5801014        STR              R1, [R0, #BANKCON4_OFS]
+  953 000000E0 E3A01C07        LDR              R1,      =BANKCON5_Val
+  954 000000E4 E5801018        STR              R1, [R0, #BANKCON5_OFS]
+  955 000000E8 E59F1098        LDR              R1,      =BANKCON6_Val
+  956 000000EC E580101C        STR              R1, [R0, #BANKCON6_OFS]
+  957 000000F0 E59F1090        LDR              R1,      =BANKCON7_Val
+  958 000000F4 E5801020        STR              R1, [R0, #BANKCON7_OFS]
+  959 000000F8 E59F108C        LDR              R1,      =REFRESH_Val
+  960 000000FC E5801024        STR              R1, [R0, #REFRESH_OFS]
+  961 00000100 E3A01032        MOV              R1,      #BANKSIZE_Val
+  962 00000104 E5801028        STR              R1, [R0, #BANKSIZE_OFS]
+  963 00000108 E3A01020        MOV              R1,      #MRSRB6_Val
+  964 0000010C E580102C        STR              R1, [R0, #MRSRB6_OFS]
+  965 00000110 E3A01020        MOV              R1,      #MRSRB7_Val
+  966 00000114 E5801030        STR              R1, [R0, #MRSRB7_OFS]
+  967 00000118                 ENDIF
+  968 00000118         
+  969 00000118         
+  970 00000118         ; I/O Pins Setup ---------------------------------------
                        ------------------------
- 1060 00000070         
- 1061 00000070 E59F0058        LDR              R0, =Stack_Top
- 1062 00000074         
- 1063 00000074         ;  Enter Undefined Instruction Mode and set its Stack Po
+  971 00000118         
+  972 00000118                 IF               (:LNOT:(:DEF:NO_GP_SETUP)):LAND
+:(GP_SETUP != 0)
+ 1044                          ENDIF
+ 1045 00000118         
+ 1046 00000118         
+ 1047 00000118         ; Copy Exception Vectors to Internal RAM ---------------
+                       ------------------------
+ 1048 00000118         
+ 1049 00000118                 IF               :DEF:RAM_INTVEC
+ 1056                          ENDIF
+ 1057 00000118         
+ 1058 00000118         
+ 1059 00000118         ; Setup Stack for each mode ----------------------------
+                       ------------------------
+ 1060 00000118         
+ 1061 00000118 E59F0070        LDR              R0, =Stack_Top
+ 1062 0000011C         
+ 1063 0000011C         ;  Enter Undefined Instruction Mode and set its Stack Po
                        inter
- 1064 00000074 E321F0DB        MSR              CPSR_c, #Mode_UND:OR:I_Bit:OR:F
+ 1064 0000011C E321F0DB        MSR              CPSR_c, #Mode_UND:OR:I_Bit:OR:F
 _Bit
- 1065 00000078 E1A0D000        MOV              SP, R0
- 1066 0000007C E2400000        SUB              R0, R0, #UND_Stack_Size
- 1067 00000080         
- 1068 00000080         ;  Enter Abort Mode and set its Stack Pointer
- 1069 00000080 E321F0D7        MSR              CPSR_c, #Mode_ABT:OR:I_Bit:OR:F
+ 1065 00000120 E1A0D000        MOV              SP, R0
+ 1066 00000124 E2400000        SUB              R0, R0, #UND_Stack_Size
+ 1067 00000128         
+ 1068 00000128         ;  Enter Abort Mode and set its Stack Pointer
+ 1069 00000128 E321F0D7        MSR              CPSR_c, #Mode_ABT:OR:I_Bit:OR:F
 _Bit
- 1070 00000084 E1A0D000        MOV              SP, R0
- 1071 00000088 E2400000        SUB              R0, R0, #ABT_Stack_Size
- 1072 0000008C         
- 1073 0000008C         ;  Enter FIQ Mode and set its Stack Pointer
- 1074 0000008C E321F0D1        MSR              CPSR_c, #Mode_FIQ:OR:I_Bit:OR:F
-_Bit
- 1075 00000090 E1A0D000        MOV              SP, R0
- 1076 00000094 E2400000        SUB              R0, R0, #FIQ_Stack_Size
- 1077 00000098         
- 1078 00000098         ;  Enter IRQ Mode and set its Stack Pointer
- 1079 00000098 E321F0D2        MSR              CPSR_c, #Mode_IRQ:OR:I_Bit:OR:F
-_Bit
- 1080 0000009C E1A0D000        MOV              SP, R0
- 1081 000000A0 E2400080        SUB              R0, R0, #IRQ_Stack_Size
- 1082 000000A4         
- 1083 000000A4         ;  Enter Supervisor Mode and set its Stack Pointer
- 1084 000000A4 E321F0D3        MSR              CPSR_c, #Mode_SVC:OR:I_Bit:OR:F
-_Bit
- 1085 000000A8 E1A0D000        MOV              SP, R0
- 1086 000000AC E2400008        SUB              R0, R0, #SVC_Stack_Size
- 1087 000000B0         
- 1088 000000B0         ;  Enter User Mode and set its Stack Pointer
- 1089 000000B0 E321F010        MSR              CPSR_c, #Mode_USR
- 1090 000000B4 E1A0D000        MOV              SP, R0
- 1091 000000B8 E24DAB01        SUB              SL, SP, #USR_Stack_Size
- 1092 000000BC         
- 1093 000000BC         ;  Enter User Mode and set its Stack Pointer
- 1094 000000BC E321F010        MSR              CPSR_c, #Mode_USR
- 1095 000000C0                 IF               :DEF:__MICROLIB
- 1100 000000C0         
- 1101 000000C0 E1A0D000        MOV              SP, R0
- 1102 000000C4 E24DAB01        SUB              SL, SP, #USR_Stack_Size
- 1103 000000C8         
- 1104 000000C8                 ENDIF
- 1105 000000C8         
- 1106 000000C8         
- 1107 000000C8         ; Enter the C code -------------------------------------
-                       ------------------------
- 1108 000000C8         
- 1109 000000C8                 IMPORT           __main
- 1110 000000C8 E59F0004        LDR              R0, =__main
- 1111 000000CC E12FFF10        BX               R0
 
 
 
 ARM Macro Assembler    Page 28 
 
 
- 1112 000000D0         
- 1113 000000D0         
- 1114 000000D0                 IF               :DEF:__MICROLIB
- 1120 000000D0         ; User Initial Stack & Heap
- 1121 000000D0 00000000 
+ 1070 0000012C E1A0D000        MOV              SP, R0
+ 1071 00000130 E2400000        SUB              R0, R0, #ABT_Stack_Size
+ 1072 00000134         
+ 1073 00000134         ;  Enter FIQ Mode and set its Stack Pointer
+ 1074 00000134 E321F0D1        MSR              CPSR_c, #Mode_FIQ:OR:I_Bit:OR:F
+_Bit
+ 1075 00000138 E1A0D000        MOV              SP, R0
+ 1076 0000013C E2400000        SUB              R0, R0, #FIQ_Stack_Size
+ 1077 00000140         
+ 1078 00000140         ;  Enter IRQ Mode and set its Stack Pointer
+ 1079 00000140 E321F0D2        MSR              CPSR_c, #Mode_IRQ:OR:I_Bit:OR:F
+_Bit
+ 1080 00000144 E1A0D000        MOV              SP, R0
+ 1081 00000148 E2400080        SUB              R0, R0, #IRQ_Stack_Size
+ 1082 0000014C         
+ 1083 0000014C         ;  Enter Supervisor Mode and set its Stack Pointer
+ 1084 0000014C E321F0D3        MSR              CPSR_c, #Mode_SVC:OR:I_Bit:OR:F
+_Bit
+ 1085 00000150 E1A0D000        MOV              SP, R0
+ 1086 00000154 E2400008        SUB              R0, R0, #SVC_Stack_Size
+ 1087 00000158         
+ 1088 00000158         ;  Enter User Mode and set its Stack Pointer
+ 1089 00000158 E321F010        MSR              CPSR_c, #Mode_USR
+ 1090 0000015C E1A0D000        MOV              SP, R0
+ 1091 00000160 E24DAB01        SUB              SL, SP, #USR_Stack_Size
+ 1092 00000164         
+ 1093 00000164         ;  Enter User Mode and set its Stack Pointer
+ 1094 00000164 E321F010        MSR              CPSR_c, #Mode_USR
+ 1095 00000168                 IF               :DEF:__MICROLIB
+ 1100 00000168         
+ 1101 00000168 E1A0D000        MOV              SP, R0
+ 1102 0000016C E24DAB01        SUB              SL, SP, #USR_Stack_Size
+ 1103 00000170         
+ 1104 00000170                 ENDIF
+ 1105 00000170         
+ 1106 00000170         
+ 1107 00000170         ; Enter the C code -------------------------------------
+                       ------------------------
+ 1108 00000170         
+ 1109 00000170                 IMPORT           __main
+ 1110 00000170 E59F001C        LDR              R0, =__main
+ 1111 00000174 E12FFF10        BX               R0
+ 1112 00000178         
+ 1113 00000178         
+ 1114 00000178                 IF               :DEF:__MICROLIB
+ 1120 00000178         ; User Initial Stack & Heap
+ 1121 00000178 0FFF0FFF 
+              00043011 
+              00038021 
+              001FFFF0 
+              00018005 
+              008404F3 
+              00000000 
               00000000         AREA             |.text|, CODE, READONLY
  1122 00000000         
  1123 00000000                 IMPORT           __use_two_region_memory
  1124 00000000                 EXPORT           __user_initial_stackheap
  1125 00000000         __user_initial_stackheap
  1126 00000000         
+
+
+
+ARM Macro Assembler    Page 29 
+
+
  1127 00000000 E59F000C        LDR              R0, =  Heap_Mem
  1128 00000004 E59F100C        LDR              R1, =(Stack_Mem + USR_Stack_Siz
 e)
@@ -1785,8 +1839,8 @@ e)
               00000400 
               00000000 
 Command Line: --debug --xref --cpu=ARM920T --apcs=interwork --depend=S3C2440.d 
--oS3C2440.o -IC:\Keil\ARM\INC -IC:\Keil\ARM\INC\Samsung --list=S3C2440.lst S3C2
-440.s
+-oS3C2440.o -Id:\Keil\ARM\RV31\INC -Id:\Keil\ARM\CMSIS\Include -Id:\Keil\ARM\In
+c\Samsung --list=S3C2440.lst S3C2440.s
 
 
 
@@ -2065,48 +2119,48 @@ Symbol: BANKCON0_OFS
    Definitions
       At line 227 in file S3C2440.s
    Uses
-      None
-Comment: BANKCON0_OFS unused
+      At line 944 in file S3C2440.s
+Comment: BANKCON0_OFS used once
 BANKCON0_Val 00000700
 
 Symbol: BANKCON0_Val
    Definitions
       At line 471 in file S3C2440.s
    Uses
-      None
-Comment: BANKCON0_Val unused
+      At line 943 in file S3C2440.s
+Comment: BANKCON0_Val used once
 BANKCON1_OFS 00000008
 
 Symbol: BANKCON1_OFS
    Definitions
       At line 228 in file S3C2440.s
    Uses
-      None
-Comment: BANKCON1_OFS unused
+      At line 946 in file S3C2440.s
+Comment: BANKCON1_OFS used once
 BANKCON1_Val 00000700
 
 Symbol: BANKCON1_Val
    Definitions
       At line 472 in file S3C2440.s
    Uses
-      None
-Comment: BANKCON1_Val unused
+      At line 945 in file S3C2440.s
+Comment: BANKCON1_Val used once
 BANKCON2_OFS 0000000C
 
 Symbol: BANKCON2_OFS
    Definitions
       At line 229 in file S3C2440.s
    Uses
-      None
-Comment: BANKCON2_OFS unused
+      At line 948 in file S3C2440.s
+Comment: BANKCON2_OFS used once
 BANKCON2_Val 00000700
 
 Symbol: BANKCON2_Val
    Definitions
       At line 473 in file S3C2440.s
    Uses
-      None
-Comment: BANKCON2_Val unused
+      At line 947 in file S3C2440.s
+Comment: BANKCON2_Val used once
 BANKCON3_OFS 00000010
 
 
@@ -2119,56 +2173,56 @@ Symbol: BANKCON3_OFS
    Definitions
       At line 230 in file S3C2440.s
    Uses
-      None
-Comment: BANKCON3_OFS unused
+      At line 950 in file S3C2440.s
+Comment: BANKCON3_OFS used once
 BANKCON3_Val 00000700
 
 Symbol: BANKCON3_Val
    Definitions
       At line 474 in file S3C2440.s
    Uses
-      None
-Comment: BANKCON3_Val unused
+      At line 949 in file S3C2440.s
+Comment: BANKCON3_Val used once
 BANKCON4_OFS 00000014
 
 Symbol: BANKCON4_OFS
    Definitions
       At line 231 in file S3C2440.s
    Uses
-      None
-Comment: BANKCON4_OFS unused
+      At line 952 in file S3C2440.s
+Comment: BANKCON4_OFS used once
 BANKCON4_Val 00000700
 
 Symbol: BANKCON4_Val
    Definitions
       At line 475 in file S3C2440.s
    Uses
-      None
-Comment: BANKCON4_Val unused
+      At line 951 in file S3C2440.s
+Comment: BANKCON4_Val used once
 BANKCON5_OFS 00000018
 
 Symbol: BANKCON5_OFS
    Definitions
       At line 232 in file S3C2440.s
    Uses
-      None
-Comment: BANKCON5_OFS unused
+      At line 954 in file S3C2440.s
+Comment: BANKCON5_OFS used once
 BANKCON5_Val 00000700
 
 Symbol: BANKCON5_Val
    Definitions
       At line 476 in file S3C2440.s
    Uses
-      None
-Comment: BANKCON5_Val unused
+      At line 953 in file S3C2440.s
+Comment: BANKCON5_Val used once
 BANKCON6_OFS 0000001C
 
 Symbol: BANKCON6_OFS
    Definitions
       At line 233 in file S3C2440.s
    Uses
-      None
-Comment: BANKCON6_OFS unused
+      At line 956 in file S3C2440.s
+Comment: BANKCON6_OFS used once
 BANKCON6_Val 00018005
 
 Symbol: BANKCON6_Val
@@ -2181,64 +2235,64 @@ ARM Macro Assembler    Page 3 Alphabetic symbol ordering
 Absolute symbols
 
    Uses
-      None
-Comment: BANKCON6_Val unused
+      At line 955 in file S3C2440.s
+Comment: BANKCON6_Val used once
 BANKCON7_OFS 00000020
 
 Symbol: BANKCON7_OFS
    Definitions
       At line 234 in file S3C2440.s
    Uses
-      None
-Comment: BANKCON7_OFS unused
+      At line 958 in file S3C2440.s
+Comment: BANKCON7_OFS used once
 BANKCON7_Val 00018005
 
 Symbol: BANKCON7_Val
    Definitions
       At line 478 in file S3C2440.s
    Uses
-      None
-Comment: BANKCON7_Val unused
+      At line 957 in file S3C2440.s
+Comment: BANKCON7_Val used once
 BANKSIZE_OFS 00000028
 
 Symbol: BANKSIZE_OFS
    Definitions
       At line 236 in file S3C2440.s
    Uses
-      None
-Comment: BANKSIZE_OFS unused
+      At line 962 in file S3C2440.s
+Comment: BANKSIZE_OFS used once
 BANKSIZE_Val 00000032
 
 Symbol: BANKSIZE_Val
    Definitions
       At line 480 in file S3C2440.s
    Uses
-      None
-Comment: BANKSIZE_Val unused
+      At line 961 in file S3C2440.s
+Comment: BANKSIZE_Val used once
 BWSCON_OFS 00000000
 
 Symbol: BWSCON_OFS
    Definitions
       At line 226 in file S3C2440.s
    Uses
-      None
-Comment: BWSCON_OFS unused
+      At line 942 in file S3C2440.s
+Comment: BWSCON_OFS used once
 BWSCON_Val 22000000
 
 Symbol: BWSCON_Val
    Definitions
       At line 470 in file S3C2440.s
    Uses
-      None
-Comment: BWSCON_Val unused
+      At line 941 in file S3C2440.s
+Comment: BWSCON_Val used once
 CAMDIVN_OFS 00000018
 
 Symbol: CAMDIVN_OFS
    Definitions
       At line 130 in file S3C2440.s
    Uses
-      None
-Comment: CAMDIVN_OFS unused
+      At line 925 in file S3C2440.s
+Comment: CAMDIVN_OFS used once
 
 
 
@@ -2251,56 +2305,56 @@ Symbol: CAMDIVN_Val
    Definitions
       At line 220 in file S3C2440.s
    Uses
-      None
-Comment: CAMDIVN_Val unused
+      At line 924 in file S3C2440.s
+Comment: CAMDIVN_Val used once
 CLKCON_OFS 0000000C
 
 Symbol: CLKCON_OFS
    Definitions
       At line 127 in file S3C2440.s
    Uses
-      None
-Comment: CLKCON_OFS unused
+      At line 933 in file S3C2440.s
+Comment: CLKCON_OFS used once
 CLKCON_Val 001FFFF0
 
 Symbol: CLKCON_Val
    Definitions
       At line 217 in file S3C2440.s
    Uses
-      None
-Comment: CLKCON_Val unused
+      At line 932 in file S3C2440.s
+Comment: CLKCON_Val used once
 CLKDIVN_OFS 00000014
 
 Symbol: CLKDIVN_OFS
    Definitions
       At line 129 in file S3C2440.s
    Uses
-      None
-Comment: CLKDIVN_OFS unused
+      At line 923 in file S3C2440.s
+Comment: CLKDIVN_OFS used once
 CLKDIVN_Val 0000000F
 
 Symbol: CLKDIVN_Val
    Definitions
       At line 219 in file S3C2440.s
    Uses
-      None
-Comment: CLKDIVN_Val unused
+      At line 922 in file S3C2440.s
+Comment: CLKDIVN_Val used once
 CLKSLOW_OFS 00000010
 
 Symbol: CLKSLOW_OFS
    Definitions
       At line 128 in file S3C2440.s
    Uses
-      None
-Comment: CLKSLOW_OFS unused
+      At line 931 in file S3C2440.s
+Comment: CLKSLOW_OFS used once
 CLKSLOW_Val 00000004
 
 Symbol: CLKSLOW_Val
    Definitions
       At line 218 in file S3C2440.s
    Uses
-      None
-Comment: CLKSLOW_Val unused
+      At line 930 in file S3C2440.s
+Comment: CLKSLOW_Val used once
 CLOCK_BASE 4C000000
 
 Symbol: CLOCK_BASE
@@ -2313,9 +2367,9 @@ Absolute symbols
    Definitions
       At line 123 in file S3C2440.s
    Uses
-      None
-Comment: CLOCK_BASE unused
-CLOCK_SETUP 00000000
+      At line 919 in file S3C2440.s
+Comment: CLOCK_BASE used once
+CLOCK_SETUP 00000001
 
 Symbol: CLOCK_SETUP
    Definitions
@@ -2745,16 +2799,16 @@ Symbol: LOCKTIME_OFS
    Definitions
       At line 124 in file S3C2440.s
    Uses
-      None
-Comment: LOCKTIME_OFS unused
+      At line 921 in file S3C2440.s
+Comment: LOCKTIME_OFS used once
 LOCKTIME_Val 0FFF0FFF
 
 Symbol: LOCKTIME_Val
    Definitions
       At line 214 in file S3C2440.s
    Uses
-      None
-Comment: LOCKTIME_Val unused
+      At line 920 in file S3C2440.s
+Comment: LOCKTIME_Val used once
 MC_BASE 48000000
 
 Symbol: MC_BASE
@@ -2767,8 +2821,8 @@ Absolute symbols
 
       At line 225 in file S3C2440.s
    Uses
-      None
-Comment: MC_BASE unused
+      At line 940 in file S3C2440.s
+Comment: MC_BASE used once
 MC_SETUP 00000000
 
 Symbol: MC_SETUP
@@ -2783,54 +2837,54 @@ Symbol: MPLLCON_OFS
    Definitions
       At line 125 in file S3C2440.s
    Uses
-      None
-Comment: MPLLCON_OFS unused
+      At line 927 in file S3C2440.s
+Comment: MPLLCON_OFS used once
 MPLLCON_Val 00043011
 
 Symbol: MPLLCON_Val
    Definitions
       At line 215 in file S3C2440.s
    Uses
-      None
-Comment: MPLLCON_Val unused
+      At line 926 in file S3C2440.s
+Comment: MPLLCON_Val used once
 MRSRB6_OFS 0000002C
 
 Symbol: MRSRB6_OFS
    Definitions
       At line 237 in file S3C2440.s
    Uses
-      None
-Comment: MRSRB6_OFS unused
+      At line 964 in file S3C2440.s
+Comment: MRSRB6_OFS used once
 MRSRB6_Val 00000020
 
 Symbol: MRSRB6_Val
    Definitions
       At line 481 in file S3C2440.s
    Uses
-      None
-Comment: MRSRB6_Val unused
+      At line 963 in file S3C2440.s
+Comment: MRSRB6_Val used once
 MRSRB7_OFS 00000030
 
 Symbol: MRSRB7_OFS
    Definitions
       At line 238 in file S3C2440.s
    Uses
-      None
-Comment: MRSRB7_OFS unused
+      At line 966 in file S3C2440.s
+Comment: MRSRB7_OFS used once
 MRSRB7_Val 00000020
 
 Symbol: MRSRB7_Val
    Definitions
       At line 482 in file S3C2440.s
    Uses
-      None
+      At line 965 in file S3C2440.s
 
 
 
 ARM Macro Assembler    Page 13 Alphabetic symbol ordering
 Absolute symbols
 
-Comment: MRSRB7_Val unused
+Comment: MRSRB7_Val used once
 Mode_ABT 00000017
 
 Symbol: Mode_ABT
@@ -2900,16 +2954,16 @@ Symbol: REFRESH_OFS
    Definitions
       At line 235 in file S3C2440.s
    Uses
-      None
-Comment: REFRESH_OFS unused
+      At line 960 in file S3C2440.s
+Comment: REFRESH_OFS used once
 REFRESH_Val 008404F3
 
 Symbol: REFRESH_Val
    Definitions
       At line 479 in file S3C2440.s
    Uses
-      None
-Comment: REFRESH_Val unused
+      At line 959 in file S3C2440.s
+Comment: REFRESH_Val used once
 SVC_Stack_Size 00000008
 
 Symbol: SVC_Stack_Size
@@ -2934,16 +2988,16 @@ Symbol: UPLLCON_OFS
    Definitions
       At line 126 in file S3C2440.s
    Uses
-      None
-Comment: UPLLCON_OFS unused
+      At line 929 in file S3C2440.s
+Comment: UPLLCON_OFS used once
 UPLLCON_Val 00038021
 
 Symbol: UPLLCON_Val
    Definitions
       At line 216 in file S3C2440.s
    Uses
-      None
-Comment: UPLLCON_Val unused
+      At line 928 in file S3C2440.s
+Comment: UPLLCON_Val used once
 USR_Stack_Size 00000400
 
 Symbol: USR_Stack_Size
@@ -3057,4 +3111,4 @@ Symbol: |Image$$RW_RAM1$$RW$$Length|
       At line 860 in file S3C2440.s
 Comment: |Image$$RW_RAM1$$RW$$Length| used once
 4 symbols
-488 symbols in table
+494 symbols in table

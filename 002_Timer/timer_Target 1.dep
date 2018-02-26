@@ -1,12 +1,5 @@
 Dependencies for Project 'timer', Target 'Target 1': (DO NOT MODIFY !)
-F (.\S3C2440.s)(0x5A8A7AD1)(--cpu ARM920T -g --apcs=interwork -I "C:\Keil\ARM\INC" -I "C:\Keil\ARM\INC\Samsung" --list "S3C2440.lst" --xref -o "S3C2440.o" --depend "S3C2440.d")
-F (.\main.c)(0x5A8BD510)(-c --cpu ARM920T -g -O0 --apcs=interwork -I "C:\Keil\ARM\INC" -I "C:\Keil\ARM\INC\Samsung" -o "main.o" --omf_browse "main.crf" --depend "main.d")
-I (C:\Keil\ARM\INC\Samsung\s3c2440.h)(0x4BB19FA6)
-I (timer.h)(0x5A8A8174)
-I (led.h)(0x5A8A816D)
-F (.\led.c)(0x5A8A8165)(-c --cpu ARM920T -g -O0 --apcs=interwork -I "C:\Keil\ARM\INC" -I "C:\Keil\ARM\INC\Samsung" -o "led.o" --omf_browse "led.crf" --depend "led.d")
-I (led.h)(0x5A8A816D)
-I (C:\Keil\ARM\INC\Samsung\s3c2440.h)(0x4BB19FA6)
-F (.\timer.c)(0x5A8BD6A3)(-c --cpu ARM920T -g -O0 --apcs=interwork -I "C:\Keil\ARM\INC" -I "C:\Keil\ARM\INC\Samsung" -o "timer.o" --omf_browse "timer.crf" --depend "timer.d")
-I (C:\Keil\ARM\INC\Samsung\s3c2440.h)(0x4BB19FA6)
-I (timer.h)(0x5A8A8174)
+F (.\S3C2440.s)(0x5A93EA9E)(--cpu ARM920T -g --apcs=interwork -I "C:\Keil\ARM\INC" -I "C:\Keil\ARM\INC\Samsung" --list "S3C2440.lst" --xref -o "S3C2440.o" --depend "S3C2440.d")
+F (.\main.c)(0x5A93EA9E)(-c --cpu ARM920T -g -O0 --apcs=interwork -I "C:\Keil\ARM\INC" -I "C:\Keil\ARM\INC\Samsung" -o "main.o" --omf_browse "main.crf" --depend "main.d")
+F (.\led.c)(0x5A93EA9E)(-c --cpu ARM920T -g -O0 --apcs=interwork -I d:\Keil\ARM\RV31\INC -I d:\Keil\ARM\CMSIS\Include -I d:\Keil\ARM\Inc\Samsung -o "led.o" --omf_browse "led.crf" --depend "led.d")
+F (.\timer.c)(0x5A93EA9E)(-c --cpu ARM920T -g -O0 --apcs=interwork -I d:\Keil\ARM\RV31\INC -I d:\Keil\ARM\CMSIS\Include -I d:\Keil\ARM\Inc\Samsung -o "timer.o" --omf_browse "timer.crf" --depend "timer.d")

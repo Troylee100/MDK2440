@@ -4,14 +4,15 @@
 ### List of Objects: adding '"s3c2440.o"'
 ### List of Objects: adding '"main.o"'
 ### ADS-LD Command completed:
---cpu ARM920T "s3c2440.o" "main.o" --strict --scatter "GpioPro.sct" 
---autoat --summary_stderr --info summarysizes --map --xref --callgraph --symbols 
+--cpu ARM920T "s3c2440.o" "main.o" 
+--strict --scatter "GpioPro.sct" 
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols 
 --info sizes --info totals --info unused --info veneers 
- --list ".\GpioPro.map" -o "GpioPro.axf"### Preparing Environment (PrepEnvAds)
+ --list ".\GpioPro.map" -o GpioPro.axf### Preparing Environment (PrepEnvAds)
 ### ADS-LD Output File: 'GpioPro.axf'
 ### ADS-LD Command File: 'GpioPro.lnp'
 ### Checking for dirty Components...
-### Creating CmdFile 'GpioPro.lnp', Handle=0x00000320
+### Creating CmdFile 'GpioPro.lnp', Handle=0x000007A4
 ### Writing '.lnp' file
 ### ADS-LD Command file 'GpioPro.lnp' is ready.
 ### ADS-LD: About to start ADS-LD Thread.

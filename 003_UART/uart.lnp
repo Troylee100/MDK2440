@@ -1,5 +1,5 @@
---cpu ARM920T "s3c2440.o" "uart.o" "main.o" --feedback "uart.fed" 
+--cpu ARM920T "s3c2440.o" "main.o" "uart.o" 
 --strict --scatter "uart.sct" 
---autoat --summary_stderr --info summarysizes --map --xref --callgraph --symbols 
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols 
 --info sizes --info totals --info unused --info veneers 
- --list ".\uart.map" -o "uart.axf"
+ --list ".\uart.map" -o uart.axf

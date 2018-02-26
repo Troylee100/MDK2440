@@ -1,1 +1,14 @@
 *.[oa]
+.gitignore
+*.lst
+*.htm
+*.d
+*.crf
+*.axf
+*.lnp
+*.map
+*.sct
+*.tra
+*.bak
+*.dep
+*.o

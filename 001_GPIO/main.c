@@ -12,10 +12,10 @@ int main(void)
 	Led_Port_Init();
 	while(1)
 	{
-		//Led1´ò¿ª
+		//Led1æ‰“å¼€
 		rGPBDAT&=Led1_On;
 		delay(10000);
-		//Led1¹Ø±Õ
+		//Led1å…³é—­
 		rGPBDAT|=Led1_Off;
 		delay(10000);
 	}

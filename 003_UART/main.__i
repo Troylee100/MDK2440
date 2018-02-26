@@ -1,1 +1,5 @@
---feedback "uart.fed" -c --cpu ARM920T -g -O0 --apcs=interwork -I "C:\Keil\ARM\INC" -I "C:\Keil\ARM\INC\Samsung" -o "main.o" --omf_browse "main.crf" --depend "main.d" "main.c"
+-c --cpu ARM920T -g -O0 --apcs=interwork 
+-I d:\Keil\ARM\RV31\INC 
+-I d:\Keil\ARM\CMSIS\Include 
+-I d:\Keil\ARM\Inc\Samsung 
+-o "main.o" --omf_browse "main.crf" --depend "main.d" "main.c"
